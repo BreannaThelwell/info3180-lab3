@@ -7,4 +7,9 @@ Jinja2==3.0.3
 MarkupSafe==2.1.2
 python-dotenv==0.21.1
 Werkzeug==2.2.2
-zipp==3.11.0
+zipp==3.11.0 
+
+#added packages for flask-mail and flask-wtf
+email-validator
+flask-mail
+flask-wtf

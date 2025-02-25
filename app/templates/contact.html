@@ -1,0 +1,32 @@
+<!--html template created to ouput form-->
+
+{% extends "base.html" %} <!--extend base.html-->
+
+{% block main %} <!--main block-->
+<div class="container">
+  <h1>Contact Form</h1>
+  <h2>Fill in this form to contact the site owners.</h2>
+  <form method="POST">
+    {{ form.csrf_token }} <!--csrf token to secure form-->
+    <div class="form-group">
+      {{ form.name.label }} (Required) <!--flask-wtf form fields-->
+      {{ form.name(class="form-control") }}
+    </div>
+    <div class="form-group">
+      {{ form.email.label }} (Required)
+      {{ form.email(class="form-control") }}
+    </div>
+    <div class="form-group">
+      {{ form.subject.label }} (Required)
+      {{ form.subject(class="form-control") }}
+    </div>
+    <div class="form-group">
+      {{ form.message.label }} (Required)
+      {{ form.message(class="form-control", rows=5) }}
+    </div>
+    <div class="form-group">
+      {{ form.submit(class="btn btn-primary") }}
+    </div>
+   </form>
+  </div>
+{% endblock %} <!--main block-->

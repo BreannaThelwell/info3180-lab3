@@ -1,5 +1,7 @@
-from app import app
+from app import app, mail
 from flask import render_template, request, redirect, url_for, flash
+from app.forms import ContactForm #importing filed created
+from flask_mail import Message 
 
 
 ###
@@ -17,6 +19,33 @@ def about():
     """Render the website's about page."""
     return render_template('about.html', name="Mary Jane")
 
+#route for contact form
+@app.route('/contact', methods=['GET', 'POST'])
+def contact():
+    form = ContactForm()
+    if form.validate_on_submit():
+        #Extract Data
+        name = form.name.data
+        email = form.email.data
+        subject = form.subject.data
+        message = form.message.data
+
+        # Create email message
+        msg = Message(
+            subject=subject,
+            sender=(name, email),  # User's email as sender
+            recipients=["anna.thelwell@hotmail.com"]  
+        )
+        msg.body = f"From: {name} <{email}>\n\n{message}"
+
+         # Send email
+        mail.send(msg)
+
+        # Handle form submission 
+        flash("Your message has been sent successfully!", "success") #Flash success message
+        return redirect(url_for('home'))  # Redirect to avoid form resubmission
+
+    return render_template('contact.html', form=form)
 
 ###
 # The functions below should be applicable to all Flask apps.
